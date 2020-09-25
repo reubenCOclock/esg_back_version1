@@ -1,0 +1,22 @@
+%syntax-version=1.0.0
+%project=esg-bdd
+
+init 2020-08-26T09:49:03Z Reuben <reubenchour@gmail.com> # construction of main tables
+user 2020-08-28T09:32:00Z Reuben <reubenchour@gmail.com> # add user table
+answerId 2020-08-31T10:24:10Z Reuben <reubenchour@gmail.com> # add id to answer table
+answer-text 2020-08-31T13:07:17Z Reuben <reubenchour@gmail.com> # add answer text
+quizscores 2020-09-02T11:38:21Z Reuben <reubenchour@gmail.com> # add quiz score data
+alter-quiz-score 2020-09-03T07:11:16Z Reuben <reubenchour@gmail.com> # alter quiz score table
+addPercentage 2020-09-03T07:19:52Z Reuben <reubenchour@gmail.com> # add percentage to quizscore
+qddQuestionCounter 2020-09-04T12:13:32Z Reuben <reubenchour@gmail.com> # add question order
+unclear_question_table 2020-09-14T10:50:34Z Reuben <reubenchour@gmail.com> # add unclear answer choice
+alter-question 2020-09-14T10:59:34Z Reuben <reubenchour@gmail.com> # add isUnclear field to questions
+add_quiz_opinion 2020-09-14T13:06:17Z Reuben <reubenchour@gmail.com> # add quiz opinion table
+add_opinion_text 2020-09-14T13:08:55Z Reuben <reubenchour@gmail.com> # add quiz opinion text
+quiz_started_field 2020-09-15T08:22:07Z Reuben <reubenchour@gmail.com> # add is quiz started field
+addUserInfo 2020-09-17T13:42:27Z Reuben <reubenchour@gmail.com> # add neccesary user fields
+remove_needs_auth_field 2020-09-18T07:23:54Z Reuben <reubenchour@gmail.com> # remove needs authentication field
+add_role_entity 2020-09-18T07:49:00Z Reuben <reubenchour@gmail.com> # add role entity
+drop_role_text_user 2020-09-18T08:35:17Z Reuben <reubenchour@gmail.com> # drop column text role
+add_user_token 2020-09-18T08:45:20Z Reuben <reubenchour@gmail.com> # add token
+add_user_salt 2020-09-18T08:50:47Z Reuben <reubenchour@gmail.com> # add_user_salt

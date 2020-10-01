@@ -18,6 +18,7 @@ const dataMapper = {
   },
 
   updateUserIsHashed: async (userId) => {
+    // si le mpd de l'utlisateur n'est pas encore hashé, je fais le hachage
     try {
       await client.query(`UPDATE "user" SET is_hashed='1' WHERE "id"=$1`, [
         userId,
@@ -28,6 +29,7 @@ const dataMapper = {
   },
 
   getAllRoles: async () => {
+    // je selectionne tout les roles
     try {
       const allRoles = await client.query(`SELECT * FROM "role"`);
       return allRoles.rows;
@@ -37,6 +39,7 @@ const dataMapper = {
   },
 
   getUserRole: async () => {
+    //je selectionne le role "user"
     try {
       const userRole = await client.query(
         `SELECT * FROM "role" WHERE title='user'`
@@ -127,6 +130,7 @@ const dataMapper = {
   },
 
   checkIfQuizHasAnswers: async (userId) => {
+    // verification si il y a deja des reponses pour un quiz en particulier
     try {
       const checkEmptyAnswers = await client.query(
         `SELECT * FROM answer WHERE quiztour_id IN(SELECT "id" FROM quiztour WHERE userId=$1 ORDER BY "id" DESC LIMIT 1)`,
@@ -140,6 +144,7 @@ const dataMapper = {
   },
 
   selectQuestionsByCategory: async (categoryName) => {
+    // je selectionne toutes les questions et je fait le triage par la categorie
     try {
       const questionsByCategory = await client.query(
         `SELECT * FROM question WHERE datapoint_id IN(SELECT "id" FROM datapoint 
@@ -153,12 +158,13 @@ const dataMapper = {
   },
 
   insertQuestionOrder: async (counter, questionId) => {
+    // je mets a jour l'ordrre des questions
     try {
       const newQuestionOrder = await client.query(
         `UPDATE question SET question_order=$1 WHERE "id"=$2 RETURNING question_order,"id","content"`,
         [counter, questionId]
       );
-      //console.log(newQuestionOrder.rows[0]);
+
       return newQuestionOrder.rows[0];
     } catch (error) {
       console.log(error.message);
@@ -176,7 +182,7 @@ const dataMapper = {
 
   insertQuizAnswer: async (quizTourId, questionId, score, content) => {
     try {
-      //console.log("the function has been called");
+      // insertion d'une question dans un quiz
       const InsertQuizAnswer = await client.query(
         `INSERT into answer ("content",question_id,quiztour_id,score) VALUES($1,$2,$3,$4) RETURNING id,quiztour_id,question_id,score,"content"`,
         [content, questionId, quizTourId, score]
@@ -241,6 +247,7 @@ const dataMapper = {
   },
 
   getEmptyAnswersByQuizTour: async (userId) => {
+    // je selectionne les questions auxquelles il n'y a aucune reponse sur un quiz en particulier
     try {
       const emptyAnswers = await client.query(
         `SELECT * FROM question WHERE "id" NOT IN(SELECT question_id FROM answer WHERE quiztour_id IN(SELECT "id" FROM quiztour 
@@ -265,6 +272,7 @@ const dataMapper = {
   },
 
   getCategoryScoresByPillar: async (pillarId) => {
+    //je selectionne le total des reponses, le nombre de questions par categorie le score divisé par l'identifiant des categories, et je fait un groupement par le nom des categories
     try {
       const categoryScoresByPillar = await client.query(
         `SELECT SUM(answer.score) AS score, 
@@ -288,6 +296,7 @@ const dataMapper = {
   },
 
   insertPillarQuizScores: async (criteria, score, quizTourId) => {
+    //insertion d'un resultat d'un quiz dans la bdd
     try {
       const insertPillarScore = await client.query(
         `INSERT INTO quiz_score (criteria,score,quiztour_id) VALUES ($1,$2,$3) RETURNING categories_score,quiztour_id`,
@@ -300,6 +309,7 @@ const dataMapper = {
   },
 
   getAggregateScore: async () => {
+    // requette visant a determiner le score esg total d'une entreprise sans filtrer sur une cateogorie en particulier mais en prenant l'ensemble total
     try {
       const getGroupedScores = await client.query(`SELECT  SUM(answer.score)/COUNT(category.id)*category.weight AS muliplication_result  FROM answer 
         JOIN question ON answer.question_id=question.id

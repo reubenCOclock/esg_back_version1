@@ -22,16 +22,18 @@ const answerController = {
       const associatedQuestion = await dataMapper.getQuestionInformation(
         req.params.questionId
       );
-      //console.log("here is the associated question");
-      //console.log(associatedQuestion);
+
+      // checking whether the polarity of the question being asked is positive or negative
 
       if (associatedQuestion.polarity == "positive") {
+        // if polarity is postive, yes=1 and no=0
         if (answer == "yes") {
           score = 1;
         } else if (answer == "no") {
           score = 0;
         }
       } else {
+        // else if polarity is negative yes=0 and no=1
         if (answer == "yes") {
           score = 0;
         } else if (answer == "no") {
@@ -39,8 +41,6 @@ const answerController = {
         }
       }
 
-      //console.log(score);
-      //console.log(req.body.answer);
       // la reponse sera ensuite inseré en bdd avec les parametres correpondants.
       const newAnswer = await dataMapper.insertQuizAnswer(
         req.params.quizTourId,
@@ -51,7 +51,6 @@ const answerController = {
 
       return res.json(newAnswer);
     } catch (error) {
-      //console.log("an error has occured in this place");
       return res.json(error.message);
     }
   },
@@ -64,8 +63,6 @@ const answerController = {
       const associatedQuestion = await dataMapper.getQuestionInformation(
         req.params.questionId
       );
-      //console.log("here is the associated question");
-      //console.log(associatedQuestion);
 
       if (associatedQuestion.polarity == "positive") {
         if (answer == "yes") {
@@ -95,6 +92,7 @@ const answerController = {
   },
 
   getAnswersByQuizTour: async (req, res) => {
+    // recuperation des responses d'un quiz en particulier
     try {
       const answersByQuizTour = await dataMapper.getAnswersByQuizTour(
         req.params.quizTourId
@@ -118,6 +116,7 @@ const answerController = {
   },
 
   getEmptyAnswersByQuizTour: async (req, res) => {
+    //get all empty answers by a quiz tour
     try {
       const emptyAnswers = await dataMapper.getEmptyAnswersByQuizTour(
         req.params.userId

@@ -1,0 +1,10 @@
+%syntax-version=1.0.0
+%project=esg_v1
+
+init 2020-09-25T11:38:52Z Reuben <reubenchour@gmail.com> # establish new database
+number_to_float 2020-09-25T12:42:25Z Reuben <reubenchour@gmail.com> # change data type from numeric to float
+add_answer_score 2020-09-27T11:09:41Z Reuben <reubenchour@gmail.com> # add score column to answer
+add_hashed_column 2020-09-27T11:37:00Z Reuben <reubenchour@gmail.com> # add is_hashed column
+alter_userid 2020-09-27T12:11:37Z Reuben <reubenchour@gmail.com> # alter user id
+question_polarity 2020-09-28T16:00:43Z Reuben <reubenchour@gmail.com> # add polarity to question field
+change_category_score_type 2020-09-30T12:05:56Z Reuben <reubenchour@gmail.com> # change category score type

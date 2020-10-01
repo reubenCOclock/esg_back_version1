@@ -35,18 +35,14 @@ router.get("/findAllRoles", userController.getAllRoles);
 router.get("/findUserRole", userController.getUserRole);
 router.get("/findRoleByUserInfo/:roleId", userController.getRoleByUser);
 
-router.post(
-  "/insertQuizTour/:id",
-  isUserAuthenitcated,
-  quizController.insertQuizTour
-);
+router.post("/insertQuizTour/:id", quizController.insertQuizTour);
 router.post(
   "/updateQuizTourIsStarted/:quizTour",
   quizController.updateQuizTourStarted
 );
 router.get(
   "/findQuizTour/:id",
-  isUserAuthenitcated,
+
   quizController.findQuizTour
 );
 router.post(

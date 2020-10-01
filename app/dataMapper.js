@@ -167,6 +167,7 @@ const dataMapper = {
       );
       return updatedAnswer.rows[0];
     } catch (error) {
+      console.log("this is where the error was thrown at updateQuizAnswer");
       console.log(error.message);
     }
   },
@@ -179,6 +180,7 @@ const dataMapper = {
       );
       return checkEmptyAnswers.rows;
     } catch (error) {
+      console.log("this is where the error occured at checkIfQuizHasAnswers");
       console.log(error.message);
     }
   },
@@ -198,11 +200,15 @@ const dataMapper = {
 
   getAnswersByQuizTour: async (quizTourId) => {
     // recuperation de toutes les reponses pour un quiz en particulier
-    const getAnswers = await db.query(
-      "SELECT * FROM answer WHERE quiztour_id=$1",
-      [quizTourId]
-    );
-    return getAnswers.rows;
+    try {
+      const getAnswers = await db.query(
+        "SELECT * FROM answer WHERE quiztour_id=$1",
+        [quizTourId]
+      );
+      return getAnswers.rows;
+    } catch (error) {
+      console.log("this is where the error was thrown at getAnswersByQuizTour");
+    }
   },
 
   findEmptyAnswersByQuizTour: async (userId) => {
@@ -216,6 +222,9 @@ const dataMapper = {
 
       return getEmptyAnswers.rows;
     } catch (error) {
+      console.log(
+        "this is where the error was thrown at findEmptyAnswersByQuizTour"
+      );
       console.log(error.message);
     }
   },

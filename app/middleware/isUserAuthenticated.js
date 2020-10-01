@@ -1,4 +1,4 @@
-const dataMapper = require("../dataMapper");
+const dataMapper = require("../dataMapper_v1");
 
 const isUserAuthenticated = async (req, res, next) => {
   if (req.headers.authorization) {

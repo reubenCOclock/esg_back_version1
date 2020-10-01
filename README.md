@@ -1,7 +1,7 @@
 Instructions pour lancer en local 
 fais un git clone du repo 
-navigue dans le dossier a la racine du fichier index.js
-tape la commande npm install 
+pour voir les dossiers disponible, taper la commande ls et les dossiers seront afficher, continue a taper ls jusqa que tu trouve le fichier index.js
+qd tu est arrivé a la racine du projet (tu sera ca lorsque tu tape ls, index.js sera affich'),tape la commande npm install 
 
 
 Concernant la bdd, il faut installer le logiciel pgadmin et appliquer les configurations correpondante

@@ -16,6 +16,6 @@ app.use(bodyParser.json());
 app.use(router);
 app.use(router_v1);
 
-app.listen(3000, () => {
+app.listen(() => {
   console.log("server is listening");
 });

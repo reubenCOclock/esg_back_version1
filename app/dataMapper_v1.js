@@ -1,5 +1,5 @@
 const { Client } = require("pg");
-const client = new Client(process.env.DB_V1);
+const client = new Client(process.env.PROD_DB);
 client.connect();
 
 const dataMapper = {
@@ -271,7 +271,7 @@ const dataMapper = {
     }
   },
 
-  getCategoryScoresByPillar: async (pillarId) => {
+  getCategoryScoresByPillar: async (userId, pillarId) => {
     //je selectionne le total des reponses, le nombre de questions par categorie le score divisé par l'identifiant des categories, et je fait un groupement par le nom des categories
     try {
       const categoryScoresByPillar = await client.query(
@@ -283,10 +283,10 @@ const dataMapper = {
         JOIN category ON datapoint.category_id=category.id
         JOIN quiztour ON answer.quiztour_id=quiztour.id
         JOIN "user" ON quiztour.userId="user".id
-        WHERE answer.quiztour_id IN(SELECT "id" FROM quiztour WHERE userId=5 ORDER BY "id" DESC LIMIT 1) 
-        AND category.name IN(SELECT "name" FROM category WHERE pillar_id=$1)
+        WHERE answer.quiztour_id IN(SELECT "id" FROM quiztour WHERE userId=$1 ORDER BY "id" DESC LIMIT 1) 
+        AND category.name IN(SELECT "name" FROM category WHERE pillar_id=$2)
         GROUP BY category.name,category.weight`,
-        [pillarId]
+        [userId, pillarId]
       );
 
       return categoryScoresByPillar.rows;
@@ -308,17 +308,20 @@ const dataMapper = {
     }
   },
 
-  getAggregateScore: async () => {
+  getAggregateScore: async (userId) => {
     // requette visant a determiner le score esg total d'une entreprise sans filtrer sur une cateogorie en particulier mais en prenant l'ensemble total
     try {
-      const getGroupedScores = await client.query(`SELECT  SUM(answer.score)/COUNT(category.id)*category.weight AS muliplication_result  FROM answer 
-        JOIN question ON answer.question_id=question.id
-        JOIN datapoint ON question.datapoint_id=datapoint.id
-        JOIN category ON datapoint.category_id=category.id
-        JOIN quiztour ON answer.quiztour_id=quiztour.id
-        JOIN "user" ON quiztour.userId="user".id
-        WHERE answer.quiztour_id IN(SELECT "id" FROM quiztour WHERE userId=5 ORDER BY "id" DESC LIMIT 1) 
-        GROUP BY category.weight`);
+      const getGroupedScores = await client.query(
+        `SELECT  SUM(answer.score)/COUNT(category.id)*category.weight AS muliplication_result,category.weight,category.name  FROM answer
+      JOIN question ON answer.question_id=question.id
+      JOIN datapoint ON question.datapoint_id=datapoint.id
+      JOIN category ON datapoint.category_id=category.id
+      JOIN quiztour ON answer.quiztour_id=quiztour.id
+      JOIN "user" ON quiztour.userId="user".id
+      WHERE answer.quiztour_id IN(SELECT "id" FROM quiztour WHERE userId=$1 ORDER BY "id" DESC LIMIT 1) 
+      GROUP BY category.weight,category.name`,
+        [userId]
+      );
       return getGroupedScores.rows;
     } catch (error) {
       console.log(error.message);

@@ -74,7 +74,7 @@ router.get(
 router.get("/pillar/v1/getPillars", categoryControllerV1.getPillars);
 
 router.get(
-  "/quiz/v1/getCategoryScoresByPillar/:pillarId",
+  "/quiz/v1/getCategoryScoresByPillar/:userId/:pillarId",
   quizControllerV1.getCategoryScoresByPillar
 );
 
@@ -83,6 +83,9 @@ router.post(
   quizControllerV1.insertPillarQuizScores
 );
 
-router.get("/quiz/v1/getAggregateScores", quizControllerV1.getAggreateScore);
+router.get(
+  "/quiz/v1/getAggregateScores/:userId",
+  quizControllerV1.getAggreateScore
+);
 
 module.exports = router;

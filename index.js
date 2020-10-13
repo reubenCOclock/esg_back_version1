@@ -16,7 +16,6 @@ app.use(bodyParser.json());
 app.use(router);
 app.use(router_v1);
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log("server is listening");
-  console.log("hello world");
 });

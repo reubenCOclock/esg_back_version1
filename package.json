@@ -1,0 +1,32 @@
+{
+  "name": "lfa-esg-back",
+  "version": "1.0.0",
+  "description": "Instructions pour lancer en local  fais un git clone du repo  pour voir les dossiers disponible, taper la commande ls et les dossiers seront afficher, continue a taper ls jusqa que tu trouve le fichier index.js qd tu est arrivé a la racine du projet (tu sera ca lorsque tu tape ls, index.js sera affich'),tape la commande npm install",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "pg": "^8.3.3",
+    "sha-256": "^1.0.3",
+    "uid2": "^0.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reubenCOclock/esg_back_version1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reubenCOclock/esg_back_version1/issues"
+  },
+  "homepage": "https://github.com/reubenCOclock/esg_back_version1#readme"
+}

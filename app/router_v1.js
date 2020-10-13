@@ -16,11 +16,7 @@ router.get("/role/v1/getUserRole", userControllerV1.getUserRole);
 
 router.post("/user/v1/authentication", userControllerV1.authenticateUserSignIn);
 
-router.post(
-  "/quiz/v1/insertQuizTour/:id",
-  isUserAuthenticated,
-  quizControllerV1.insertQuizTour
-);
+router.post("/quiz/v1/insertQuizTour/:id", quizControllerV1.insertQuizTour);
 
 router.post(
   "/quiz/v1/updateQuizStarted/:quizTour",
